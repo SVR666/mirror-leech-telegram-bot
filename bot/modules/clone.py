@@ -5,7 +5,7 @@ from threading import Thread
 from time import sleep
 
 from bot.helper.mirror_utils.upload_utils.gdriveTools import GoogleDriveHelper
-from bot.helper.telegram_helper.message_utils import sendMessage, deleteMessage, delete_all_messages, update_all_messages, sendStatusMessage, sendFile, sendMarkup
+from bot.helper.telegram_helper.message_utils import *
 from bot.helper.telegram_helper.filters import CustomFilters
 from bot.helper.telegram_helper.bot_commands import BotCommands
 from bot.helper.mirror_utils.status_utils.clone_status import CloneStatus
@@ -82,6 +82,7 @@ def _clone(message, bot, multi=0):
             sendMessage(f"{tag} {result}", bot, message)
         else:
             sendMarkup(result + cc, bot, message, button)
+            postToChannel(result, bot, button)
             LOGGER.info(f'Cloning Done: {name}')
     else:
         sendMessage("Send Gdrive link along with command or by replying to the link by command\n\n<b>Multi links only by replying to first link/file:</b>\n<code>/cmd</code> 10(number of links/files)", bot, message)

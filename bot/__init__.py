@@ -419,6 +419,14 @@ try:
 except:
     pass
 
+try:
+    CHANNEL_ID = getConfig('CHANNEL_ID')
+    if len(CHANNEL_ID) == 0:
+        raise KeyError
+except:
+    CHANNEL_ID = None
+    log_info('CHANNEL_ID not provided!')
+
 DRIVES_NAMES.append("Main")
 DRIVES_IDS.append(parent_id)
 if ospath.exists('drive_folder'):

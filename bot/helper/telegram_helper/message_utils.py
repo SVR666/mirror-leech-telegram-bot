@@ -6,8 +6,13 @@ from pyrogram.errors import FloodWait
 from os import remove
 
 from bot import AUTO_DELETE_MESSAGE_DURATION, LOGGER, status_reply_dict, status_reply_dict_lock, \
-                Interval, DOWNLOAD_STATUS_UPDATE_INTERVAL, RSS_CHAT_ID, bot, rss_session
+                Interval, DOWNLOAD_STATUS_UPDATE_INTERVAL, RSS_CHAT_ID, bot, rss_session, CHANNEL_ID
 from bot.helper.ext_utils.bot_utils import get_readable_message, setInterval
+
+def postToChannel(text: str, bot, reply_markup: InlineKeyboardMarkup):
+    if CHANNEL_ID:
+        return bot.send_message(chat_id=CHANNEL_ID,
+                                text=text, reply_markup=reply_markup, parse_mode='HTMl')
 
 
 def sendMessage(text: str, bot, message: Message):

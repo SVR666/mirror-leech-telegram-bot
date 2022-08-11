@@ -17,7 +17,7 @@ from bot.helper.mirror_utils.status_utils.upload_status import UploadStatus
 from bot.helper.mirror_utils.status_utils.tg_upload_status import TgUploadStatus
 from bot.helper.mirror_utils.upload_utils.gdriveTools import GoogleDriveHelper
 from bot.helper.mirror_utils.upload_utils.pyrogramEngine import TgUploader
-from bot.helper.telegram_helper.message_utils import sendMessage, sendMarkup, delete_all_messages, update_all_messages
+from bot.helper.telegram_helper.message_utils import sendMessage, sendMarkup, delete_all_messages, update_all_messages, postToChannel
 from bot.helper.telegram_helper.button_build import ButtonMaker
 from bot.helper.ext_utils.db_handler import DbManger
 
@@ -257,6 +257,7 @@ class MirrorLeechListener:
                         share_urls = f'{INDEX_URL}/{url_path}?a=view'
                         buttons.buildbutton("🌐 View Link", share_urls)
             sendMarkup(msg, self.bot, self.message, InlineKeyboardMarkup(buttons.build_menu(2)))
+            postToChannel(msg, self.bot, InlineKeyboardMarkup(buttons.build_menu(2)))
             if self.seed:
                 if self.isZip:
                     clean_target(f"{self.dir}/{name}")
