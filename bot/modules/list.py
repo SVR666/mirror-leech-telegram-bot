@@ -36,17 +36,14 @@ def select_type(update, context):
     query.answer()
     item_type = data[2]
     editMessage(f"<b>Searching for <i>{key}</i></b>", msg)
-    Thread(target=_list_drive, args=(context.bot, key, msg, item_type)).start()
+    Thread(target=_list_drive, args=(key, msg, item_type)).start()
 
-def _list_drive(bot, key, bmsg, item_type):
+def _list_drive(key, bmsg, item_type):
     LOGGER.info(f"listing: {key}")
     gdrive = GoogleDriveHelper()
-    cap, f_name = gdrive.drive_list(key, isRecursive=True, itemType=item_type)
-    if cap:
-        deleteMessage(bot, bmsg)
-        sendFile(bot, bmsg.reply_to_message, f_name, cap)
-    else:
-        editMessage(f'No result found for <i>{key}</i>', bmsg)
+    msg, button = gdrive.drive_list(key, isRecursive=True, itemType=item_type)
+    if button:
+        editMessage(msg, bmsg, button)
 
 list_handler = CommandHandler(BotCommands.ListCommand, list_buttons, filters=CustomFilters.authorized_chat | CustomFilters.authorized_user, run_async=True)
 list_type_handler = CallbackQueryHandler(select_type, pattern="types", run_async=True)
