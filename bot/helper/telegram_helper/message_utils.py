@@ -12,7 +12,7 @@ from bot.helper.ext_utils.bot_utils import get_readable_message, setInterval
 def postToChannel(text: str, bot, reply_markup: InlineKeyboardMarkup):
     if CHANNEL_ID:
         return bot.send_message(chat_id=CHANNEL_ID,
-                                text=text, reply_markup=reply_markup, parse_mode='HTMl')
+                                text=text, reply_markup=reply_markup, parse_mode='HTML')
 
 
 def sendMessage(text: str, bot, message: Message):
